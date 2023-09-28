@@ -20,7 +20,7 @@ export interface GetCacheFunction {
 export interface GetTranslationOptions {
   _locale?: string;
   _namespace?: string;
-  _count?: number;
+  count?: number;
   [key: string]: unknown;
 }
 
@@ -251,7 +251,7 @@ const i18n = {
       const pluralizedTranslation = i18n._pluralizeTranslation(
         interpolatedTranslation,
         locale,
-        variables._count,
+        variables.count,
       );
 
       return pluralizedTranslation;

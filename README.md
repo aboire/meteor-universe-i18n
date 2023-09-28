@@ -35,18 +35,23 @@ The package supports:
   - [Setting/getting locale](#settinggetting-locale)
   - [Adding translations by methods](#adding-translations-by-methods)
   - [Getting translations](#getting-translations)
+  - [String Interpolation](#string-interpolation)
 - [Translations files](#translations-files)
   - [Recognition locale of translation](#recognition-locale-of-translation)
   - [Namespace](#namespace)
+    - [Splitting keys in file](#splitting-keys-in-file)
     - [Translation in packages](#translation-in-packages)
     - [Translation in application](#translation-in-application)
+- [Listener on language change](#listener-on-language-change)
 - [Pluralization](#pluralization)
   - [Custom rules](#custom-rules)
 - [API](#api)
 - [Integrations](#integrations)
   - [Integration with React](#integration-with-react)
   - [Integration with Blaze](#integration-with-blaze)
-  - [Integration with SimpleSchema](#integration-with-simpleschema-package)
+  - [Integration with SimpleSchema package](#integration-with-simpleschema-package)
+- [Running Tests](#running-tests)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -328,17 +333,17 @@ With this package, you can translate with pluralization. To do that you need to 
 
 ```yml
 _locale: 'en'
-phone: 'zero phones | one phone | two phones | {$_count} phones'
+phone: 'zero phones | one phone | two phones | {$count} phones'
 ```
 
-Then just add the `_count` argument to the `getTranslation` options:
+Then just add the `count` argument to the `getTranslation` options:
 
 ```js
-i18n.getTranslation('phone', { _count: 0 }); // -> zero phones
-i18n.getTranslation('phone', { _count: 1 }); // -> one phone
-i18n.getTranslation('phone', { _count: 2 }); // -> two phones
-i18n.getTranslation('phone', { _count: 3 }); // -> 3 phones
-i18n.getTranslation('phone', { _count: 1000 }); // -> 1000 phones
+i18n.getTranslation('phone', { count: 0 }); // -> zero phones
+i18n.getTranslation('phone', { count: 1 }); // -> one phone
+i18n.getTranslation('phone', { count: 2 }); // -> two phones
+i18n.getTranslation('phone', { count: 3 }); // -> 3 phones
+i18n.getTranslation('phone', { count: 1000 }); // -> 1000 phones
 ```
 
 It is possible to override the default separator `|` with custom one by adding the `pluralizationDivider` property to `i18n.setOptions`.
@@ -368,20 +373,20 @@ i18n.setOptions({
 
 ```yml
 _locale: 'pl'
-phone: '{$_count} telefon | {$_count} telefony | {$_count} telefonów'
+phone: '{$count} telefon | {$count} telefony | {$count} telefonów'
 ```
 
 Template:
 
 ```js
-i18n.getTranslation('phone', { _count: 0 }); // -> 0 telefonów
-i18n.getTranslation('phone', { _count: 1 }); // -> 1 telefon
-i18n.getTranslation('phone', { _count: 2 }); // -> 2 telefony
-i18n.getTranslation('phone', { _count: 3 }); // -> 3 telefony
-i18n.getTranslation('phone', { _count: 4 }); // -> 4 telefony
-i18n.getTranslation('phone', { _count: 5 }); // -> 5 telefonów
-i18n.getTranslation('phone', { _count: 232 }); // -> 232 telefony
-i18n.getTranslation('phone', { _count: 1000 }); // -> 1000 telefonów
+i18n.getTranslation('phone', { count: 0 }); // -> 0 telefonów
+i18n.getTranslation('phone', { count: 1 }); // -> 1 telefon
+i18n.getTranslation('phone', { count: 2 }); // -> 2 telefony
+i18n.getTranslation('phone', { count: 3 }); // -> 3 telefony
+i18n.getTranslation('phone', { count: 4 }); // -> 4 telefony
+i18n.getTranslation('phone', { count: 5 }); // -> 5 telefonów
+i18n.getTranslation('phone', { count: 232 }); // -> 232 telefony
+i18n.getTranslation('phone', { count: 1000 }); // -> 1000 telefonów
 ```
 
 ## API

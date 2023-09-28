@@ -136,11 +136,18 @@ const i18n = {
         return translation !== undefined;
       }),
     );
+    // changement pour pouvoir renvoyer un objet
+    // const translationWithHideMissing = translation
+    //   ? `${translation}`
+    //   : i18n.options.hideMissing
+    //     ? ''
+    //     : key;
+
     const translationWithHideMissing = translation
-      ? `${translation}`
+      ? translation
       : i18n.options.hideMissing
-      ? ''
-      : key;
+        ? ''
+        : key;
 
     return translationWithHideMissing;
   },
@@ -233,17 +240,22 @@ const i18n = {
       [locale, defaultLocale],
       key,
     );
-    const interpolatedTranslation = i18n._interpolateTranslation(
-      variables,
-      translation,
-    );
-    const pluralizedTranslation = i18n._pluralizeTranslation(
-      interpolatedTranslation,
-      locale,
-      variables._count,
-    );
 
-    return pluralizedTranslation;
+    if (typeof translation === 'object') {
+      return translation;
+    } else if (typeof translation === 'string') {
+      const interpolatedTranslation = i18n._interpolateTranslation(
+        variables,
+        translation,
+      );
+      const pluralizedTranslation = i18n._pluralizeTranslation(
+        interpolatedTranslation,
+        locale,
+        variables._count,
+      );
+
+      return pluralizedTranslation;
+    }
   },
   getTranslations(key?: string, locale?: string) {
     if (locale === undefined) {
